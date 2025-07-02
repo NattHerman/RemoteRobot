@@ -27,6 +27,7 @@ if __name__ == "__main__":
         
         if command[0] == "o":
             servo_wheel.offset = int(command[1:])
+            servo_wheel.set_speed(0)
         else:
             speed = int(command)
             servo_wheel.set_speed(speed)

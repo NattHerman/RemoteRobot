@@ -10,8 +10,8 @@ def test(serial_path):
     print("Testing", serial_path)
     port = Serial(serial_path, baudrate=115_200)
     
-    debug_write(port, "#1 P1500 <cr>")
-    debug_write(port, "#1 P1600 T2000 <cr>")
+    debug_write(port, b"#1 P1500 \r")
+    debug_write(port, b"#1 P1600 T2000 \r")
 
 test("/dev/ttyS0")
 test("/dev/serial0")

@@ -20,5 +20,11 @@ if __name__ == "__main__":
 
     servo_wheel = SSC32ModifiedServo(0, SSC32)
 
-    speed = int(input("Servo speed:"))
-    servo_wheel.set_speed(speed)
+    print("Send servo command")
+    print("Prefix with 'o' to set offset")
+    while True:
+        command = input()
+        if command[0] == "o":
+            servo_wheel.offset = int(command[1:])
+        speed = int(command)
+        servo_wheel.set_speed(speed)

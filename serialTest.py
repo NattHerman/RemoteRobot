@@ -1,13 +1,17 @@
 from serial import Serial
 from time import sleep
 
+def debug_write(port, string):
+    port.write(string)
+    print(string)
+
+
 def test(serial_path):
     print("Testing", serial_path)
     port = Serial(serial_path, baudrate=115_200)
     
-    b = "#0 P1500 S750 <cr>".encode("ascii")
-    port.write(b)
-    print(b)
+    debug_write(port, "#1 P1500 <cr>")
+    debug_write(port, "#1 P1600 T2000 <cr>")
 
 test("/dev/ttyS0")
 test("/dev/serial0")

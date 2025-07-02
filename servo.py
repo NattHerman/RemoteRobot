@@ -24,7 +24,9 @@ if __name__ == "__main__":
     print("Prefix with 'o' to set offset")
     while True:
         command = input()
+        
         if command[0] == "o":
             servo_wheel.offset = int(command[1:])
-        speed = int(command)
-        servo_wheel.set_speed(speed)
+        else:
+            speed = int(command)
+            servo_wheel.set_speed(speed)

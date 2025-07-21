@@ -13,9 +13,11 @@ class ModifiedServoArray():
             self.speeds[i] = self.offsets[i]
     
     def update(self):
+        # Create command to update all servos at once
         command = ""
         for i in range(self.length):
             speed = self.speeds[i] + self.offsets[i]
             command += f"#{self._indices[i]} P{speed}"
         command += "\r"
+
         self._serial.write(command.encode("ascii"))

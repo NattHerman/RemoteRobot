@@ -13,6 +13,7 @@ def index():
 
 @socketio.event
 def robot_update(speed, turning):
+    # Update movement state of robot
     print('received args:', speed, turning)
 
 @socketio.on('disconnect')

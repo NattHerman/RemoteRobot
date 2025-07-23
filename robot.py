@@ -7,6 +7,8 @@ class Robot():
     """
 
     def __init__(self, servos: ModifiedServoArray):
+        if servos.count
+
         self._servos: ModifiedServoArray = servos
         self._top_speed: int = 750 # Not sure what this unit would be
         self._current_speed: int = 0
@@ -42,9 +44,25 @@ class Robot():
     def update(self):
         """Update speed of motors."""
 
-        self._servos.speeds[0]
-        self._servos.speeds[1]
-        self._servos.speeds[2]
-        self._servos.speeds[3]
+        if self._current_turning_rate == 0:
+            # There is no turning, all wheels should be spinning at the same speed.
+            # Remember, wheels are rotated 180 degrees on the other side of the vehicle.
+            # We compensate by spinning those wheels the other way.
+            self._servos.speeds[0] = self._current_speed
+            self._servos.speeds[1] = self._current_speed
+            self._servos.speeds[2] = -self._current_speed
+            self._servos.speeds[3] = -self._current_speed
+
+        elif self._current_speed == 0:
+            # There is no forward movement, left wheels should spin in opposite direction to the right wheels.
+            self._servos.speeds[0] = -self._current_turning_rate
+            self._servos.speeds[1] = -self._current_turning_rate
+            self._servos.speeds[2] = -self._current_turning_rate
+            self._servos.speeds[3] = -self._current_turning_rate
+        else:
+            self._servos.speeds[0] =  self._current_speed - self._current_turning_rate
+            self._servos.speeds[1] =  self._current_speed - self._current_turning_rate
+            self._servos.speeds[2] = -self._current_speed - self._current_turning_rate
+            self._servos.speeds[3] = -self._current_speed - self._current_turning_rate
         
         self._servos.update()            

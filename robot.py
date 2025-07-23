@@ -7,7 +7,8 @@ class Robot():
     """
 
     def __init__(self, servos: ModifiedServoArray):
-        if servos.count
+        if servos.count != 4:
+            raise ValueError("This robot expects an array of four servos. Because it has four wheels.")
 
         self._servos: ModifiedServoArray = servos
         self._top_speed: int = 750 # Not sure what this unit would be

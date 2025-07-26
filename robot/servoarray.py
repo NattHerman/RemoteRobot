@@ -6,7 +6,7 @@ class ModifiedServoArray(): ## TODO: Rename to ContinousServoArray?
     Array of continous servos. The speed of each servo is modified by setting the corresponding value in the self.speeds list.
     """
 
-    def __init__(self, serial, indices = range(4)):
+    def __init__(self, serial: Serial, indices = range(4)):
         self._indices = indices
         self._serial = serial
         self.count = len(indices)

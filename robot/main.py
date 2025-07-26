@@ -5,7 +5,7 @@ from flask_socketio import SocketIO
 
 # Robot control modules
 from serial import Serial
-from robot import Robot
+from robotlib import Robot
 from servoarray import ModifiedServoArray
 
 

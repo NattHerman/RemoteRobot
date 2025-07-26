@@ -18,7 +18,7 @@ serial_port_path = "/dev/ttyS0"
 try:
     port = Serial(serial_port_path, 115_200)
 except:
-    print(f"Warning: Serial port {serial_port_path} is unavailable")
+    print(f"WARNING: Serial port '{serial_port_path}' is unavailable")
     port = Serial()
 
 servo_array = ModifiedServoArray(port, [1, 2, 3, 4])
@@ -33,6 +33,8 @@ def index():
 def robot_update(speed, turning):
     # Update movement state of robot
     print('received args:', speed, turning)
+    robot.set_normalized_speed(speed)
+    robot.set_normalized_turning_rate(turning)
 
 @socketio.on('disconnect')
 def test_disconnect(reason):

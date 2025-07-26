@@ -22,6 +22,7 @@ except:
     port = Serial()
 
 servo_array = ModifiedServoArray(port, [1, 2, 3, 4])
+servo_array.offsets = [0, 0, 0, 0]
 robot = Robot(servo_array)
 
 

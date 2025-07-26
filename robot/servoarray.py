@@ -21,7 +21,9 @@ class ModifiedServoArray(): ## TODO: Rename to ContinousServoArray?
         # Create command to update all servos at once
         command = ""
         for i in range(self.count):
-            speed = self.speeds[i] + self.offsets[i]
+            base_offset = 1500
+            speed = self.speeds[i] + self.offsets[i] + base_offset
+
             command += f"#{self._indices[i]} P{speed}"
         command += "\r"
 

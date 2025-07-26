@@ -1,10 +1,28 @@
+# Web server modules
 import threading
 from flask import Flask, render_template
 from flask_socketio import SocketIO
 
+# Robot control modules
+from serial import Serial
+from robot import Robot
+from servoarray import ModifiedServoArray
+
+
 app = Flask(__name__, template_folder="../static", static_folder="../static")
 app.config['SECRET_KEY'] = 'secret!'
 socketio = SocketIO(app)
+
+serial_port_path = "/dev/ttyS0"
+
+try:
+    port = Serial(serial_port_path, 115_200)
+except:
+    print(f"Warning: Serial port {serial_port_path} is unavailable")
+    port = Serial()
+
+servo_array = ModifiedServoArray(port, [1, 2, 3, 4])
+robot = Robot(servo_array)
 
 
 @app.route("/")

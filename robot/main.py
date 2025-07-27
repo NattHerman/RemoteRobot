@@ -8,6 +8,9 @@ from serial import Serial
 from robotlib import Robot
 from servoarray import ModifiedServoArray
 
+import pickle
+import os
+
 
 # Initialize Flask server with SocketIO
 app = Flask(__name__, template_folder="../static", static_folder="../static")
@@ -24,10 +27,26 @@ except:
     print(f"WARNING: Serial port '{SSC32_port_path}' is unavailable")
     SSC32 = Serial()
 
+servo_offsets_dump_path = "pickles/servo_offsets.pkl"
+
 # Initialize servo array and robot
 servo_array = ModifiedServoArray(SSC32, [1, 2, 3, 4])
 servo_array.offsets = [0, 0, 0, 0]
 robot = Robot(servo_array)
+
+
+# Save and load servo offsets
+def save_offsets(servo_array: ModifiedServoArray):
+    # Dump/pickle offsets to file
+    with open(servo_offsets_dump_path, "bw") as file:
+        pickle.dump(servo_array.offsets, file)
+
+def load_offsets(servo_array: ModifiedServoArray):
+    # Check if file exists
+    if os.path.exists(servo_offsets_dump_path):
+        # Load/unpickle offsets from file
+        with open(servo_offsets_dump_path, "br") as file:
+            servo_array.offsets = pickle.load(file)
 
 
 @app.route("/")

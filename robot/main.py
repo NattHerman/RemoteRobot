@@ -80,6 +80,7 @@ def set_offsets(offsets):
     servo_array.offsets = offsets
     save_offsets(servo_array)
     emit("send_existing_offsets", servo_array.offsets, broadcast=True)
+    
     # Set speed to zero when new offset is set
     if serial_available:
         robot.set_normalized_speed(0)

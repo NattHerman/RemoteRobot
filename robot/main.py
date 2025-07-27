@@ -65,6 +65,16 @@ def robot_update(speed, turning):
         robot.set_normalized_speed(speed)
         robot.set_normalized_turning_rate(turning)
 
+@socketio.event
+def set_offsets(offsets):
+    print(offsets)
+    # Clamp offsets to [-1500, 1500]
+    for i in range(servo_array.count):
+        offsets[i] = min(1500, max(-1500, offsets[i]))
+    
+    servo_array.offsets = offsets
+    save_offsets(servo_array)
+
 # When a client disconnects, we want the robot to stop.
 @socketio.on('disconnect')
 def test_disconnect(reason):

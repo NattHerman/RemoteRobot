@@ -1,5 +1,3 @@
-console.log("hello world")
-
 var socket = io();
 
 // Clamped between -1 and 1

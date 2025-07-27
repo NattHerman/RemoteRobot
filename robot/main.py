@@ -30,7 +30,7 @@ except:
     SSC32 = Serial()
     serial_available = False
 
-servo_offsets_dump_path = "pickles/servo_offsets.pkl"
+servo_offsets_dump_path = r"robot/pickles/servo_offsets.pkl"
 
 # Initialize servo array and robot
 servo_array = ModifiedServoArray(SSC32, [1, 2, 3, 4])
@@ -47,9 +47,15 @@ def save_offsets(servo_array: ModifiedServoArray):
 def load_offsets(servo_array: ModifiedServoArray):
     # Check if file exists
     if os.path.exists(servo_offsets_dump_path):
-        # Load/unpickle offsets from file
-        with open(servo_offsets_dump_path, "br") as file:
-            servo_array.offsets = pickle.load(file)
+        # If the pickle cant be unpickled, delete the pickle and move on.
+        try:
+            # Load/unpickle offsets from file
+            with open(servo_offsets_dump_path, "br") as file:
+                servo_array.offsets = pickle.load(file)
+        except pickle.UnpicklingError:
+            print(f"ERROR: Servo offset pickle at '{servo_offsets_dump_path}' cannot be unpickled")
+            print(f"Deleting file at '{servo_offsets_dump_path}'")
+            os.remove(servo_offsets_dump_path)
 
 
 @app.route("/")

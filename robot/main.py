@@ -66,7 +66,7 @@ def index():
 @socketio.event
 def robot_update(speed, turning):
     # Update movement state of robot
-    print('received args:', speed, turning)
+    print('set state:', speed, turning)
     if serial_available:
         robot.set_normalized_speed(speed)
         robot.set_normalized_turning_rate(turning)

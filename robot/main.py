@@ -1,7 +1,7 @@
 # Web server modules
 import threading
 from flask import Flask, render_template
-from flask_socketio import SocketIO
+from flask_socketio import SocketIO, emit
 
 # Robot control modules
 from serial import Serial
@@ -34,7 +34,6 @@ servo_offsets_dump_path = r"robot/pickles/servo_offsets.pkl"
 
 # Initialize servo array and robot
 servo_array = ModifiedServoArray(SSC32, [1, 2, 3, 4])
-servo_array.offsets = [0, 0, 0, 0]
 robot = Robot(servo_array)
 
 
@@ -83,11 +82,15 @@ def set_offsets(offsets):
 
 # When a client disconnects stop the robot.
 @socketio.on('disconnect')
-def test_disconnect(reason):
+def disconnect(reason):
     ## Halt robot
     if serial_available:
         robot.set_normalized_speed(0)
         robot.set_normalized_turning_rate(0)
+
+@socketio.on('connect')
+def connect():
+    emit("send_existing_offsets", servo_array.offsets)
 
 
 if __name__ == "__main__":

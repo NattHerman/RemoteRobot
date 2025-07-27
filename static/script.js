@@ -5,6 +5,23 @@ var speed = 0
 // Clamped between -1 and 1
 var turning = 0
 
+var servoOffsetInputs = [
+    document.getElementById("servo0"),
+    document.getElementById("servo1"),
+    document.getElementById("servo2"),
+    document.getElementById("servo3"),
+]
+
+var setOffsetButton = document.getElementById("setOffsetButton")
+
+// Update offsets when button pressed
+setOffsetButton.addEventListener("click", () => {
+    offsets = servoOffsetInputs.map((element) => { return Number(element.value) })
+
+    console.log(offsets)
+    socket.emit("set_offsets", offsets)
+})
+
 // Stop robot when tab lost focus
 window.addEventListener("blur", () => {
     speed = 0

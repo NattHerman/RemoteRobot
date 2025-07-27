@@ -19,13 +19,16 @@ socketio = SocketIO(app)
 
 # The path of a serial port where an SSC32 servo controller can be accessed.
 SSC32_port_path = "/dev/ttyS0"
+serial_available = False
 
 # We still want the server to boot up even if the serial port is unavailable.
 try:
     SSC32 = Serial(SSC32_port_path, 115_200)
+    serial_available = True
 except:
     print(f"WARNING: Serial port '{SSC32_port_path}' is unavailable")
     SSC32 = Serial()
+    serial_available = False
 
 servo_offsets_dump_path = "pickles/servo_offsets.pkl"
 
@@ -58,15 +61,17 @@ def index():
 def robot_update(speed, turning):
     # Update movement state of robot
     print('received args:', speed, turning)
-    robot.set_normalized_speed(speed)
-    robot.set_normalized_turning_rate(turning)
+    if serial_available:
+        robot.set_normalized_speed(speed)
+        robot.set_normalized_turning_rate(turning)
 
 # When a client disconnects, we want the robot to stop.
 @socketio.on('disconnect')
 def test_disconnect(reason):
     ## Halt robot
-    robot.set_normalized_speed(0)
-    robot.set_normalized_turning_rate(0)
+    if serial_available:
+        robot.set_normalized_speed(0)
+        robot.set_normalized_turning_rate(0)
 
 
 if __name__ == "__main__":

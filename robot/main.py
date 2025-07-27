@@ -91,4 +91,8 @@ def test_disconnect(reason):
 
 
 if __name__ == "__main__":
+    print("Loading offsets")
+    load_offsets(servo_array)
+
+    print("Starting web server")
     socketio.run(app, "0.0.0.0", debug=True)

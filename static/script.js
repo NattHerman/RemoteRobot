@@ -27,8 +27,10 @@ addEventListener("keydown", (event) => {
             break;
     }
 
-    console.log(speed, turning)
-    socket.emit("robot_update", speed, turning)
+    if ("wasd".includes(event.key)) {
+        console.log(speed, turning)
+        socket.emit("robot_update", speed, turning)
+    }
 })
 
 addEventListener("keyup", (event) => {
@@ -49,6 +51,8 @@ addEventListener("keyup", (event) => {
             break;
     }
 
-    console.log(speed, turning)
-    socket.emit("robot_update", speed, turning)
+    if ("wasd".includes(event.key)) {
+        console.log(speed, turning)
+        socket.emit("robot_update", speed, turning)
+    }
 })

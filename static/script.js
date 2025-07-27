@@ -81,3 +81,11 @@ addEventListener("keyup", (event) => {
         socket.emit("robot_update", speed, turning)
     }
 })
+
+// Set values of offset input to existing servo offsets 
+socket.on("send_existing_offsets", (offsets) => {
+    console.log(offsets)
+    offsets.map((servoOffset, index) => {
+        servoOffsetInputs[index].value = servoOffset
+    })
+})

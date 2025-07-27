@@ -52,7 +52,3 @@ addEventListener("keyup", (event) => {
     console.log(speed, turning)
     socket.emit("robot_update", speed, turning)
 })
-
-socket.on('connect', () => {
-    socket.emit('my event', {data: 'I\'m connected!'});
-});

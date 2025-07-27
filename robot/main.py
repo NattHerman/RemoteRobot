@@ -68,10 +68,6 @@ def test_disconnect(reason):
     robot.set_normalized_speed(0)
     robot.set_normalized_turning_rate(0)
 
-# TODO: remove this event, here and client-side
-@socketio.on('my event')
-def handle_my_custom_event(json):
-    print('received json: ' + str(json))
 
 if __name__ == "__main__":
     socketio.run(app, "0.0.0.0", debug=True)

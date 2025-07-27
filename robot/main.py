@@ -15,17 +15,17 @@ app.config['SECRET_KEY'] = 'secret!'
 socketio = SocketIO(app)
 
 # The path of a serial port where an SSC32 servo controller can be accessed.
-serial_port_path = "/dev/ttyS0"
+SSC32_port_path = "/dev/ttyS0"
 
 # We still want the server to boot up even if the serial port is unavailable.
 try:
-    port = Serial(serial_port_path, 115_200)
+    SSC32 = Serial(SSC32_port_path, 115_200)
 except:
-    print(f"WARNING: Serial port '{serial_port_path}' is unavailable")
-    port = Serial()
+    print(f"WARNING: Serial port '{SSC32_port_path}' is unavailable")
+    SSC32 = Serial()
 
 # Initialize servo array and robot
-servo_array = ModifiedServoArray(port, [1, 2, 3, 4])
+servo_array = ModifiedServoArray(SSC32, [1, 2, 3, 4])
 servo_array.offsets = [0, 0, 0, 0]
 robot = Robot(servo_array)
 

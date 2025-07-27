@@ -18,7 +18,7 @@ var setOffsetButton = document.getElementById("setOffsetButton")
 setOffsetButton.addEventListener("click", () => {
     offsets = servoOffsetInputs.map((element) => { return Number(element.value) })
 
-    console.log(offsets)
+    console.log("offsets:", offsets)
     socket.emit("set_offsets", offsets)
 })
 

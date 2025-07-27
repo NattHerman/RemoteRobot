@@ -79,6 +79,7 @@ def set_offsets(offsets):
     
     servo_array.offsets = offsets
     save_offsets(servo_array)
+    emit("send_existing_offsets", servo_array.offsets, broadcast=True)
 
 # When a client disconnects stop the robot.
 @socketio.on('disconnect')

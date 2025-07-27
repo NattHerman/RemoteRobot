@@ -81,7 +81,7 @@ def set_offsets(offsets):
     servo_array.offsets = offsets
     save_offsets(servo_array)
 
-# When a client disconnects, we want the robot to stop.
+# When a client disconnects stop the robot.
 @socketio.on('disconnect')
 def test_disconnect(reason):
     ## Halt robot

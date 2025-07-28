@@ -14,13 +14,20 @@ var servoOffsetInputs = [
 
 var setOffsetButton = document.getElementById("setOffsetButton")
 
-// Update offsets when button pressed
-setOffsetButton.addEventListener("click", () => {
+function updateOffsets() {
     offsets = servoOffsetInputs.map((element) => { return Number(element.value) })
 
-    console.log("offsets:", offsets)
+    console.log("offsets sent:", offsets)
     socket.emit("set_offsets", offsets)
-})
+}
+
+// Update offsets when button pressed
+setOffsetButton.addEventListener("click", updateOffsets)
+
+// Also update when pressing enter in one of the input boxes
+for (input of servoOffsetInputs) {
+    input.addEventListener("change", updateOffsets)
+}
 
 // Stop robot when tab lost focus
 window.addEventListener("blur", () => {
@@ -84,7 +91,7 @@ addEventListener("keyup", (event) => {
 
 // Set values of offset input to existing servo offsets 
 socket.on("send_existing_offsets", (offsets) => {
-    console.log(offsets)
+    console.log("offsets recieved:", offsets)
     offsets.map((servoOffset, index) => {
         servoOffsetInputs[index].value = servoOffset
     })

@@ -45,6 +45,10 @@ window.addEventListener("blur", () => {
     socket.emit("robot_update", 0, 0)
 })
 
+
+//     -- Controlling the robot --
+
+// Control using wasd on a keyboard
 addEventListener("keydown", (event) => {
     //console.log("down", event.key, "repeating", event.repeat)
     
@@ -95,5 +99,45 @@ addEventListener("keyup", (event) => {
         console.log(speed, turning)
         socket.emit("robot_update", speed, turning)
     }
+})
+
+// Control using joystick on the page
+var joystickContainer = document.getElementById("joystickContainer")
+var joystick = document.getElementById("joystick")
+var isDragging = false
+
+joystickContainer.addEventListener("pointerdown", (event) => {
+    isDragging = true
+    joystickContainer.setPointerCapture(event.pointerId)
+})
+
+joystickContainer.addEventListener("pointerup", (event) => {
+    isDragging = false
+    joystickContainer.releasePointerCapture(event.pointerId)
+
+    joystick.style.left = `50%`
+    joystick.style.top = `50%`
+})
+
+joystickContainer.addEventListener("pointermove", (event) => {
+    if (!isDragging) { return }
+
+    const rect = joystickContainer.getBoundingClientRect();
+    let x = (event.clientX - (rect.x + rect.width/2)) / rect.width * 2
+    let y = (event.clientY - (rect.y + rect.height/2)) / rect.height * 2
+
+    const vectorLength = Math.sqrt(x**2 + y**2)
+
+    if (vectorLength > 1) {
+        x = x / vectorLength
+        y = y / vectorLength
+    }
+
+    joystick.style.left = `${x * 50 + 50}%`
+    joystick.style.top = `${y * 50 + 50}%`
+
+    socket.emit("robot_update", -y, -x)
+
+    event.stopPropagation()
 })
 

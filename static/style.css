@@ -17,7 +17,8 @@
 .flex {
     display: flex;
     flex-direction: row;
-    justify-content: space-evenly;
+    justify-content: center;
+    align-items: center;
 }
 
 iframe {
@@ -33,6 +34,26 @@ body {
 	color: #aaa;
 }
 
+#joystickContainer {
+    position: relative;
+    background-color: #444;
+    border-radius: 50%;
+    width: 10em;
+    height: 10em;
+    touch-action: none;
+}
+
+#joystick {
+    position: absolute;
+    background-color: #111;
+    border-radius: 50%;
+    width: 2em;
+    height: 2em;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
 @media (max-width: 1250px) {
 	* {
 		font-size: 40px;
@@ -41,5 +62,9 @@ body {
     iframe {
         width: 80vw;
         height: calc(80vw * (9/16));
+    }
+
+    .flex {
+        flex-direction: column;
     }
 }

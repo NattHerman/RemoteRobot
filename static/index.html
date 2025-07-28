@@ -2,25 +2,30 @@
 <head>
     <!--Required for Flask SocketIO-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js" integrity="sha512-q/dWJ3kcmjBLU4Qc47E4A9kTB4m3wuTY7vkFJDTZKjTs8jhyGQnaUrxa0Ytd0ssMZhbNua9hE+E7Qv1j+DyZwA==" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="static/style.css">
 </head>
 <body>
-    <iframe src="http://192.168.1.152:8889/cam" width="1280px" height="720px" scrolling="no"></iframe> <br>
-    
-    <div>
-        <label for="servo1">Servo 0:</label>
-        <input type="number" id="servo0" name="servo0" min="-1500" max="1500" value=0>
+    <div class="center margin">
+        <iframe src="http://192.168.1.152:8889/cam" scrolling="no"></iframe> <br>
 
-        <label for="servo1">Servo 3:</label>
-        <input type="number" id="servo3" name="servo3" min="-1500" max="1500" value=0> <br>
+        <div class="margin flex">
+            <div class="margin">
+                <label for="servo1">Servo 0:</label>
+                <input type="number" id="servo0" name="servo0" min="-1500" max="1500" value=0>
 
-        <label for="servo1">Servo 1:</label>
-        <input type="number" id="servo1" name="servo1" min="-1500" max="1500" value=0>
+                <label for="servo1">Servo 3:</label>
+                <input type="number" id="servo3" name="servo3" min="-1500" max="1500" value=0> <br>
 
-        <label for="servo1">Servo 2:</label>
-        <input type="number" id="servo2" name="servo2" min="-1500" max="1500" value=0> <br>
+                <label for="servo1">Servo 1:</label>
+                <input type="number" id="servo1" name="servo1" min="-1500" max="1500" value=0>
+
+                <label for="servo1">Servo 2:</label>
+                <input type="number" id="servo2" name="servo2" min="-1500" max="1500" value=0> <br>
 
 
-        <button id="setOffsetButton">Set Offsets</button>
+                <button id="setOffsetButton">Set Offsets</button>
+            </div>
+        </div>
     </div>
 </body>
 

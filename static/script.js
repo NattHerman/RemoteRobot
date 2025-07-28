@@ -24,7 +24,7 @@ function updateOffsets() {
 // Update offsets when button pressed
 setOffsetButton.addEventListener("click", updateOffsets)
 
-// Also update when pressing enter in one of the input boxes
+// Also update when setting value of the input boxes
 for (input of servoOffsetInputs) {
     input.addEventListener("change", updateOffsets)
 }

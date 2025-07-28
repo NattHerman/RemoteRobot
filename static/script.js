@@ -105,6 +105,8 @@ addEventListener("keyup", (event) => {
 var joystickContainer = document.getElementById("joystickContainer")
 var joystick = document.getElementById("joystick")
 var isDragging = false
+var previousJoystickTimestamp = Date.now( )
+var joystickEventInterval = 20
 
 joystickContainer.addEventListener("pointerdown", (event) => {
     isDragging = true
@@ -140,8 +142,12 @@ joystickContainer.addEventListener("pointermove", (event) => {
     joystick.style.left = `${x * 50 + 50}%`
     joystick.style.top = `${y * 50 + 50}%`
 
-    socket.emit("robot_update", -y, -x)
-
+    let now = Date.now()
+    if (now - previousJoystickTimestamp > joystickEventInterval) {
+        socket.emit("robot_update", -y, -x)
+        previousJoystickTimestamp = now
+    }
+    
     event.stopPropagation()
 })
 

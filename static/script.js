@@ -89,7 +89,7 @@ addEventListener("keyup", (event) => {
     }
 })
 
-// Set values of offset input to existing servo offsets 
+// Onn load and when values changed: Set values of offset input to server side servo offsets 
 socket.on("send_existing_offsets", (offsets) => {
     console.log("offsets recieved:", offsets)
     offsets.map((servoOffset, index) => {

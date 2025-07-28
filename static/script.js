@@ -42,7 +42,7 @@ window.addEventListener("blur", () => {
     speed = 0
     turning = 0
     console.log("Lost focus, stopping robot")
-    socket.emit("robot_update", 0, 0)
+    socket.emit("stop_robot")
 })
 
 
@@ -120,7 +120,7 @@ joystickContainer.addEventListener("pointerup", (event) => {
     joystick.style.top = `50%`
 
     // Stop robot
-    socket.emit("robot_update", 0, 0)
+    socket.emit("stop_robot")
 })
 
 joystickContainer.addEventListener("pointermove", (event) => {

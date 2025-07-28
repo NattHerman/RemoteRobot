@@ -21,6 +21,14 @@ function updateOffsets() {
     socket.emit("set_offsets", offsets)
 }
 
+// On load and when values changed: Set values of offset input to server side servo offsets 
+socket.on("send_existing_offsets", (offsets) => {
+    console.log("offsets recieved:", offsets)
+    offsets.map((servoOffset, index) => {
+        servoOffsetInputs[index].value = servoOffset
+    })
+})
+
 // Update offsets when button pressed
 setOffsetButton.addEventListener("click", updateOffsets)
 
@@ -89,10 +97,3 @@ addEventListener("keyup", (event) => {
     }
 })
 
-// Onn load and when values changed: Set values of offset input to server side servo offsets 
-socket.on("send_existing_offsets", (offsets) => {
-    console.log("offsets recieved:", offsets)
-    offsets.map((servoOffset, index) => {
-        servoOffsetInputs[index].value = servoOffset
-    })
-})

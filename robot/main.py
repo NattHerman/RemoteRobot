@@ -10,6 +10,7 @@ from servoarray import ModifiedServoArray
 
 import pickle
 import os
+import time
 
 
 # Initialize Flask server with SocketIO
@@ -69,6 +70,17 @@ def robot_update(speed, turning):
     if serial_available:
         robot.set_normalized_speed(speed)
         robot.set_normalized_turning_rate(turning)
+
+@socketio.event
+def stop_robot():
+    # Update movement state of robot
+    print('stopping robot')
+    if serial_available:
+        robot.set_normalized_speed(0)
+        robot.set_normalized_turning_rate(0)
+        time.sleep(0.1) # Sleeping to make sure stop command is recieved
+        robot.set_normalized_speed(0)
+        robot.set_normalized_turning_rate(0)
 
 @socketio.event
 def set_offsets(offsets):

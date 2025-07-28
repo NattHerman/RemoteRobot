@@ -115,8 +115,12 @@ joystickContainer.addEventListener("pointerup", (event) => {
     isDragging = false
     joystickContainer.releasePointerCapture(event.pointerId)
 
+    // Reset joystick
     joystick.style.left = `50%`
     joystick.style.top = `50%`
+
+    // Stop robot
+    socket.emit("robot_update", 0, 0)
 })
 
 joystickContainer.addEventListener("pointermove", (event) => {

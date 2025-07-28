@@ -93,18 +93,13 @@ def set_offsets(offsets):
     save_offsets(servo_array)
     emit("send_existing_offsets", servo_array.offsets, broadcast=True)
     
-    # Set speed to zero when new offset is set
-    if serial_available:
-        robot.set_normalized_speed(0)
-        robot.set_normalized_turning_rate(0)
+    stop_robot()
 
 # When a client disconnects stop the robot.
 @socketio.on('disconnect')
 def disconnect(reason):
     ## Halt robot
-    if serial_available:
-        robot.set_normalized_speed(0)
-        robot.set_normalized_turning_rate(0)
+    stop_robot()
 
 @socketio.on('connect')
 def connect():

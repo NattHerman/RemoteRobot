@@ -54,6 +54,11 @@ body {
     transform: translate(-50%, -50%);
 }
 
+#videoSource {
+    width: 1em;
+    height: 1em;
+}
+
 @media (max-width: 1250px) {
 	* {
 		font-size: 40px;

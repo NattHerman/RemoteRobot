@@ -157,3 +157,22 @@ joystickContainer.addEventListener("pointermove", (event) => {
     event.stopPropagation()
 })
 
+
+//      -- Change video source --
+
+var videoSources = [
+    "http://192.168.1.152:8889/cam",
+    "localhost:8889/cam",
+]
+
+var videoSourceInput = document.getElementById("videoSource")
+var cameraStream = document.getElementById("cameraStream")
+
+videoSourceInput.addEventListener("input", (event) => {
+    console.log(videoSourceInput.checked)
+    if (videoSourceInput.checked) {
+        cameraStream.src = videoSources[1]
+    } else {
+        cameraStream.src = videoSources[0]
+    }
+})

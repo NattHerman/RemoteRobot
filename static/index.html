@@ -6,7 +6,7 @@
 </head>
 <body>
     <div class="center margin">
-        <iframe src="http://192.168.1.152:8889/cam" scrolling="no"></iframe> <br>
+        <iframe id="cameraStream" src="http://192.168.1.152:8889/cam" scrolling="no"></iframe> <br>
 
         <div class="margin flex">
             <div class="margin">
@@ -23,13 +23,20 @@
                 <input type="number" id="servo2" name="servo2" min="-1500" max="1500" value=0> <br>
 
 
-                <button id="setOffsetButton">Set Offsets</button>
+                <button id="setOffsetButton">Set Offsets</button> <br>
+
+                <label for="videoSource">Use localhost video source:</label>
+                <input type="checkbox" id="videoSource" name="videoSource" value="localhost">
             </div>
 
             <div class="margin" id="joystickContainer">
                 <div id="joystick">
 
                 </div>
+            </div>
+
+            <div class="margin">
+
             </div>
         </div>
     </div>

@@ -5,6 +5,9 @@ var speed = 0
 // Clamped between -1 and 1
 var turning = 0
 
+
+//      -- Updating servo offsets --
+
 var servoOffsetInputs = [
     document.getElementById("servo0"),
     document.getElementById("servo1"),
@@ -46,7 +49,7 @@ window.addEventListener("blur", () => {
 })
 
 
-//     -- Controlling the robot --
+//      -- Controlling the robot --
 
 // Control using wasd on a keyboard
 addEventListener("keydown", (event) => {
@@ -110,6 +113,7 @@ var joystickEventInterval = 20
 
 joystickContainer.addEventListener("pointerdown", (event) => {
     isDragging = true
+    // Prevent pointer from interacting with other elements while joystick is being used
     joystickContainer.setPointerCapture(event.pointerId)
 })
 
@@ -134,6 +138,7 @@ joystickContainer.addEventListener("pointermove", (event) => {
 
     const vectorLength = Math.sqrt(x**2 + y**2)
 
+    // Restrict joystick
     if (vectorLength > 1) {
         x = x / vectorLength
         y = y / vectorLength
@@ -142,6 +147,7 @@ joystickContainer.addEventListener("pointermove", (event) => {
     joystick.style.left = `${x * 50 + 50}%`
     joystick.style.top = `${y * 50 + 50}%`
 
+    // Restrict update event frequency
     let now = Date.now()
     if (now - previousJoystickTimestamp > joystickEventInterval) {
         socket.emit("robot_update", -y, -x)

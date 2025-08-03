@@ -3,12 +3,13 @@ from servoarray import ModifiedServoArray
 
 class Robot():
     """
-    This robot expects the servo array to contain four servos and be ordered anti-clockwise starting at the front left wheel.
+    This robot expects the servo array to contain at least four servos and be ordered anti-clockwise starting at the front left wheel.
+    The (optional) fifth servo should be a camera tilt servo. 
     """
 
     def __init__(self, servos: ModifiedServoArray):
-        if servos.count != 4:
-            raise ValueError("This robot expects an array of four servos. Because it has four wheels.")
+        if servos.count >= 4:
+            raise ValueError("This robot expects an array of at least four servos. Because it has four wheels and one optional servo for camera tilt.")
 
         self._servos: ModifiedServoArray = servos
         self._top_speed: int = 750 # Not sure what this unit would be

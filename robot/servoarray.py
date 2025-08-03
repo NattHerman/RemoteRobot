@@ -23,6 +23,7 @@ class ModifiedServoArray(): ## TODO: Rename to ContinousServoArray?
         for i in range(self.count):
             base_offset = 1500
             speed = self.speeds[i] + self.offsets[i] + base_offset
+            speed = round(speed)
 
             command += f"#{self._indices[i]} P{speed}"
         command += "\r"
